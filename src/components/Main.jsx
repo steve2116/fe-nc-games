@@ -4,7 +4,7 @@ export default function Main() {
         <>
             <Routes>
                 <Route
-                    to=""
+                    to="/"
                     element={""}
                 />
             </Routes>
