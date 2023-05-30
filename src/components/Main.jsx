@@ -1,11 +1,14 @@
 import { Routes, Route } from "react-router-dom";
+
+import ReviewList from "./ReviewList.jsx";
+
 export default function Main() {
     return (
         <>
             <Routes>
                 <Route
-                    to="/"
-                    element={""}
+                    path="/reviews"
+                    element={<ReviewList />}
                 />
             </Routes>
         </>
