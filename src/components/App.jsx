@@ -1,4 +1,5 @@
-import Main from "./Main";
+import Main from "./Main.jsx";
+import "../designs/App.css";
 
 export default function App() {
     return (
