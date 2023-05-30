@@ -1,0 +1,99 @@
+nav {
+    display: grid;
+    grid-template-columns: repeat(100, 1%);
+    grid-template-rows: repeat(10, 10%);
+    background-color: lightcoral;
+}
+
+.logo {
+    border-radius: 50%;
+}
+
+nav > img {
+    grid-row: 2 / 11;
+    grid-column: 3 / 15;
+    height: 90%;
+}
+
+nav > section {
+    grid-row: 1 / 11;
+    grid-column: 20 / 50;
+}
+
+nav > div {
+    grid-row: 2 / 11;
+    grid-column: 50 / 101;
+    display: flex;
+    justify-content: space-evenly;
+    flex-wrap: wrap;
+}
+
+/* nav > section > h1 {
+} */
+
+nav > section > p {
+    font-style: italic;
+}
+
+@media (max-width: 800px) {
+    nav > section > h1 {
+        font-size: 1em;
+    }
+
+    nav > section > p {
+        font-size: 0.8em;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1200px) {
+    nav > section {
+        grid-row: 1 / 11;
+        grid-column: 25 / 50;
+    }
+
+    nav > section > h1 {
+        font-size: 4em;
+    }
+
+    nav > section > p {
+        font-size: 1.3em;
+    }
+
+    nav > div > a {
+        font-size: 2em;
+        height: 55px;
+        transition: all 0.15s ease-in-out;
+    }
+    nav > div > a:hover {
+        font-size: 2.4em;
+        transition: all 0.2s ease-in-out;
+    }
+}
+
+@media (min-width: 1200px) {
+    nav > section {
+        grid-column: 20 / 55;
+    }
+
+    nav > div {
+        grid-column: 55 / 101;
+    }
+
+    nav > section > h1 {
+        font-size: 5em;
+    }
+
+    nav > section > p {
+        font-size: 1.4em;
+    }
+
+    nav > div > a {
+        font-size: 2em;
+        height: 55px;
+        transition: all 0.15s ease-in-out;
+    }
+    nav > div > a:hover {
+        font-size: 2.4em;
+        transition: all 0.2s ease-in-out;
+    }
+}
