@@ -1,6 +1,4 @@
-import axios from "axios";
-
-const API = axios.create({ baseURL: "https://chatmat.onrender.com/api" });
+import API from "./API.js";
 
 const getReviews = ({ p }) => {
     if (isNaN(p)) p = 1;
