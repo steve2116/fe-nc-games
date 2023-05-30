@@ -1,20 +1,73 @@
-main > ul {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
-    gap: 5vw;
+@media (max-width: 799px) {
+    main > ul {
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+        align-items: center;
+        flex-wrap: nowrap;
+    }
+
+    .list-review {
+        height: 50vw;
+        width: 50vw;
+        padding: 3px;
+        margin: 3vw;
+        border: 1px solid red;
+        text-align: center;
+    }
+
+    .list-review > img {
+        max-width: 40vw;
+        max-height: 30vw;
+    }
 }
 
-.list-review {
-    height: 20vw;
-    width: 20vw;
-    padding: 5px;
-    border: 1px solid red;
+@media (min-width: 800px) and (max-width: 1199px) {
+    main > ul {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+    }
+
+    .list-review {
+        height: 30vw;
+        width: 30vw;
+        padding: 5px;
+        margin: 3vw;
+        border: 1px solid red;
+        text-align: center;
+    }
+
+    .list-review > img {
+        max-width: 27vw;
+        max-height: 20vw;
+    }
 }
 
-.list-review > img {
-    max-width: 20vw;
-    max-height: 20vw;
+@media (min-width: 1200px) {
+    main > ul {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        gap: 5vw;
+    }
+
+    .list-review {
+        height: 20vw;
+        width: 20vw;
+        padding: 5px;
+        border: 1px solid red;
+        text-align: center;
+    }
+
+    .list-review > img {
+        max-width: 20vw;
+        max-height: 20vw;
+    }
 }

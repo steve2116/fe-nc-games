@@ -16,14 +16,21 @@ export default function App() {
             <div className={hoverClass}>
                 <div
                     onClick={() => {
-                        setHoverClass("hover-cats");
-                    }}
-                    onMouseLeave={() => {
-                        setHoverClass("content-container");
+                        setHoverClass((currHover) => {
+                            return currHover === "content-container"
+                                ? "hover-cats"
+                                : "content-container";
+                        });
                     }}
                     id="category-menu"
                 >
-                    <Categories />
+                    <div
+                        className={
+                            hoverClass === "content-container" ? "hidden" : ""
+                        }
+                    >
+                        <Categories />
+                    </div>
                 </div>
                 <main>
                     <Main />
