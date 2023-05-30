@@ -1,0 +1,46 @@
+#single-review {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    width: 100%;
+    text-align: center;
+}
+
+#review > img {
+    max-width: 90%;
+}
+
+.review-owner {
+    font-style: italic;
+}
+
+.score {
+    font-weight: 600;
+}
+
+@media (max-width: 799px) {
+    #review > h2 {
+        font-size: 1.2em;
+    }
+
+    #review > p {
+        font-size: 0.9em;
+    }
+}
+
+@media (min-width: 800px) and (max-width: 1199px) {
+    #review > h2 {
+        font-size: 2em;
+    }
+
+    #review > p {
+        font-size: 1.3em;
+    }
+}
+
+@media (min-width: 1200px) {
+    #review > p {
+        font-size: 1.4em;
+    }
+}
