@@ -33,6 +33,16 @@ export default function Comments({ review_id }) {
         );
     return (
         <ul id="comment-list">
+            <form
+                id="post-comment"
+                className="list-comment"
+            >
+                <label htmlFor="new-comment-body">Post a new comment: </label>
+                <input
+                    id="new-comment-body"
+                    placeholder="Enter comment here..."
+                />
+            </form>
             {comments.map(({ comment_id, body, author, votes }) => {
                 return (
                     <li

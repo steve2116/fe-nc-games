@@ -8,6 +8,11 @@
     text-align: center;
 }
 
+#new-comment-body {
+    width: 100%;
+    border-radius: 20px;
+}
+
 @media (max-width: 799px) {
     .list-comment {
         display: flex;
@@ -38,6 +43,11 @@
     .comment-body {
         background-color: rgba(242, 92, 23, 0.481);
         border-radius: 10px;
+    }
+
+    #new-comment-body {
+        min-height: 45px;
+        padding: 5px;
     }
 }
 
