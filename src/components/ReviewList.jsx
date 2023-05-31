@@ -32,23 +32,27 @@ export default function ReviewList() {
     return (
         <>
             <ul id="reviewlist">
-                {reviews.map(({ title, owner, review_img_url, review_id }) => {
-                    return (
-                        <Link
-                            key={review_id}
-                            to={`/reviews/${review_id}`}
-                        >
-                            <li className="list-review">
-                                <p className="reviewlist-title">{title}</p>
-                                <p className="reviewlist-owner">by {owner}</p>
-                                <img
-                                    src={review_img_url}
-                                    alt=""
-                                />
-                            </li>
-                        </Link>
-                    );
-                })}
+                {reviews.map(
+                    ({ title, owner, review_img_url, review_id, category }) => {
+                        return (
+                            <Link
+                                key={review_id}
+                                to={`/reviews/${review_id}`}
+                            >
+                                <li className="list-review">
+                                    <p className="reviewlist-title">{title}</p>
+                                    <p className="reviewlist-owner">
+                                        by {owner}
+                                    </p>
+                                    <img
+                                        src={review_img_url}
+                                        alt={`The review image of ${category}`}
+                                    />
+                                </li>
+                            </Link>
+                        );
+                    }
+                )}
             </ul>
             <section>
                 <Link

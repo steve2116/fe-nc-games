@@ -32,7 +32,7 @@ export default function SingleReview() {
                     </p>
                     <img
                         src={review.review_img_url}
-                        alt=""
+                        alt={`A ${review.category} game by ${review.designer}`}
                     />
                     <p>{review.review_body}</p>
                 </section>
