@@ -29,6 +29,7 @@ nav > section > p {
         grid-row: 4 / 11;
         grid-column: 3 / 15;
         min-height: 90%;
+        max-height: 90%;
         max-width: 30vw;
     }
 
