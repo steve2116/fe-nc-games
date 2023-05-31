@@ -20,6 +20,13 @@ nav > div {
     flex-wrap: wrap;
 }
 
+nav > div > a {
+    color: black;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: rgba(52, 251, 244, 0.835);
+}
+
 nav > section > p {
     font-style: italic;
 }
@@ -104,12 +111,12 @@ nav > section > p {
     }
 
     nav > div > a {
-        font-size: 1.8em;
+        font-size: 2em;
         height: 45px;
         transition: all 0.15s ease-in-out;
     }
     nav > div > a:hover {
-        font-size: 2.2em;
+        font-size: 2.4em;
         transition: all 0.2s ease-in-out;
     }
 }
@@ -143,12 +150,12 @@ nav > section > p {
     }
 
     nav > div > a {
-        font-size: 2em;
+        font-size: 2.3em;
         height: 55px;
         transition: all 0.15s ease-in-out;
     }
     nav > div > a:hover {
-        font-size: 2.4em;
+        font-size: 2.7em;
         transition: all 0.2s ease-in-out;
     }
 }

@@ -18,6 +18,7 @@ export default function Navbar() {
             <div>
                 <Link to="/">Home</Link>
                 <Link to="/reviews">Reviews</Link>
+                <Link to="/account">Account</Link>
             </div>
         </>
     );

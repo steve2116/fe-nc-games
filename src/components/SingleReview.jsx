@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useParams } from "react-router-dom";
 
+import { userContext } from "../contexts/user.jsx";
 import Comments from "./Comments.jsx";
 import utils from "../utils/SingleReview.js";
 import "../designs/SingleReview.css";
 
 export default function SingleReview() {
+    const { user, setUser } = useContext(userContext);
     const { review_id } = useParams();
     const [review, setReview] = useState({});
     const [loading, setLoading] = useState(false);
     const [posNeg, setPosNeg] = useState(0);
+    const [login, setLogin] = useState(false);
 
     useEffect(() => {
         setLoading(true);
+        setLogin(false);
         utils
             .getReview(review_id)
             .then((newReview) => setReview(newReview))
@@ -21,6 +25,7 @@ export default function SingleReview() {
     }, []);
 
     function scoreChange(change) {
+        if (user.username === "guest") return setLogin(true);
         if (Array.isArray(posNeg)) return;
         const diff = change === posNeg ? -1 * change : change - posNeg;
         setPosNeg((curr) => (change === curr ? 0 : change));
@@ -49,7 +54,7 @@ export default function SingleReview() {
                               return posNeg[1];
                           })()
                         : ""}
-
+                    {login ? <p>Log in to vote</p> : ""}
                     <div className="scorebar">
                         <button
                             onClick={() => {
