@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 
 import utils from "../utils/SingleReview.js";
 import "../designs/SingleReview.css";
+import Comments from "./Comments.jsx";
 
 export default function SingleReview() {
     const { review_id } = useParams();
@@ -31,6 +32,9 @@ export default function SingleReview() {
                     </p>
                     <img src={review.review_img_url} />
                     <p>{review.review_body}</p>
+                </section>
+                <section id="single-review-comments">
+                    <Comments review_id={review.review_id} />
                 </section>
             </article>
         </>

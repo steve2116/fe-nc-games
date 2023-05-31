@@ -7,6 +7,10 @@
     text-align: center;
 }
 
+#review {
+    margin-bottom: 2vh;
+}
+
 #review > img {
     max-width: 90%;
 }
