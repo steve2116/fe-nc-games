@@ -21,15 +21,15 @@ export default function SingleReview() {
     }, []);
 
     function scoreChange(change) {
-        const diff = change - posNeg;
+        if (Array.isArray(posNeg)) return;
+        const diff = change === posNeg ? -1 * change : change - posNeg;
         setPosNeg((curr) => (change === curr ? 0 : change));
         utils.votesChange(review_id, diff).catch(() => {
-            setPosNeg(change - diff);
+            setPosNeg([
+                change - diff,
+                <p>Error while making reaction request...</p>,
+            ]);
         });
-    }
-
-    if (Array.isArray(posNeg)) {
-        setPosNeg((curr) => curr[0]);
     }
 
     if (loading) return <p>Loading...</p>;
@@ -40,6 +40,16 @@ export default function SingleReview() {
                     {<h2>{review.title}</h2>}
                     <p className="review-owner">by {review.owner}</p>
                     <p>Category: {review.category}</p>
+
+                    {Array.isArray(posNeg)
+                        ? (() => {
+                              setTimeout(() => {
+                                  setPosNeg((curr) => curr[0]);
+                              }, 3000);
+                              return posNeg[1];
+                          })()
+                        : ""}
+
                     <div className="scorebar">
                         <button
                             onClick={() => {
@@ -51,9 +61,17 @@ export default function SingleReview() {
                         </button>
                         <p className="score">
                             Score:{" "}
-                            {Number(review.votes) + posNeg > 0
-                                ? `+${Number(review.votes) + posNeg}`
-                                : Number(review.votes) + posNeg}
+                            {Number(review.votes) +
+                                (Array.isArray(posNeg) ? posNeg[0] : posNeg) >
+                            0
+                                ? `+${
+                                      Number(review.votes) +
+                                      (Array.isArray(posNeg)
+                                          ? posNeg[0]
+                                          : posNeg)
+                                  }`
+                                : Number(review.votes) +
+                                  (Array.isArray(posNeg) ? posNeg[0] : posNeg)}
                         </p>
                         <button
                             onClick={() => {
