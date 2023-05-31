@@ -57,6 +57,7 @@ export default function SingleReview() {
                     {login ? <p>Log in to vote</p> : ""}
                     <div className="scorebar">
                         <button
+                            type="button"
                             onClick={() => {
                                 scoreChange(1);
                             }}
@@ -79,6 +80,7 @@ export default function SingleReview() {
                                   (Array.isArray(posNeg) ? posNeg[0] : posNeg)}
                         </p>
                         <button
+                            type="button"
                             onClick={() => {
                                 scoreChange(-1);
                             }}
