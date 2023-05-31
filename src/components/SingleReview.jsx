@@ -9,6 +9,7 @@ export default function SingleReview() {
     const { review_id } = useParams();
     const [review, setReview] = useState({});
     const [loading, setLoading] = useState(false);
+    const [posNeg, setPosNeg] = useState(0);
 
     useEffect(() => {
         setLoading(true);
@@ -18,6 +19,19 @@ export default function SingleReview() {
             .then(() => setLoading(false))
             .catch((err) => {});
     }, []);
+
+    function scoreChange(change) {
+        const diff = change - posNeg;
+        setPosNeg((curr) => (change === curr ? 0 : change));
+        utils.votesChange(review_id, diff).catch(() => {
+            setPosNeg(change - diff);
+        });
+    }
+
+    if (Array.isArray(posNeg)) {
+        setPosNeg((curr) => curr[0]);
+    }
+
     if (loading) return <p>Loading...</p>;
     return (
         <>
@@ -27,14 +41,28 @@ export default function SingleReview() {
                     <p className="review-owner">by {review.owner}</p>
                     <p>Category: {review.category}</p>
                     <div className="scorebar">
-                        <button className="pos">+</button>
+                        <button
+                            onClick={() => {
+                                scoreChange(1);
+                            }}
+                            className="pos"
+                        >
+                            +
+                        </button>
                         <p className="score">
                             Score:{" "}
-                            {review.votes > 0
-                                ? `+${review.votes}`
-                                : review.votes}
+                            {Number(review.votes) + posNeg > 0
+                                ? `+${Number(review.votes) + posNeg}`
+                                : Number(review.votes) + posNeg}
                         </p>
-                        <button className="neg">-</button>
+                        <button
+                            onClick={() => {
+                                scoreChange(-1);
+                            }}
+                            className="neg"
+                        >
+                            -
+                        </button>
                     </div>
                     <img
                         src={review.review_img_url}
