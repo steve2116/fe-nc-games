@@ -39,9 +39,14 @@ export default function Comments({ review_id }) {
                         className="list-comment"
                         key={comment_id}
                     >
-                        <p>Comment by {author}</p>
-                        <p>{body}</p>
-                        <p>{votes > 0 ? `+${votes}` : votes}</p>
+                        <p className="comment-info">{`${
+                            author.length > 12
+                                ? `${author.slice(0, 6)}...`
+                                : author.length > 6
+                                ? `${author.slice(0, 6)}-\n${author.slice(6)}`
+                                : author
+                        }\n${votes < 0 ? votes : `+${votes}`}`}</p>
+                        <p className="comment-body">{body}</p>
                     </li>
                 );
             })}
