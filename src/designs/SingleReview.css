@@ -28,8 +28,37 @@
         font-size: 1.2em;
     }
 
-    #review > p {
+    #review > p,
+    .score {
         font-size: 0.9em;
+    }
+
+    .scorebar {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        gap: 3vh;
+        padding: 15px;
+    }
+
+    .scorebar > * {
+        display: inline-block;
+    }
+
+    .pos,
+    .neg {
+        width: 3.5vh;
+        height: 3.5vh;
+        font-size: 1.3em;
+        text-align: center;
+    }
+
+    .pos {
+        background-color: rgba(10, 134, 10, 0.711);
+    }
+    .neg {
+        background-color: rgba(255, 37, 37, 0.85);
     }
 }
 
@@ -38,13 +67,15 @@
         font-size: 2em;
     }
 
-    #review > p {
+    #review > p,
+    .score {
         font-size: 1.3em;
     }
 }
 
 @media (min-width: 1200px) {
-    #review > p {
+    #review > p,
+    .score {
         font-size: 1.4em;
     }
 }

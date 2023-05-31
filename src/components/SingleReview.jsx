@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import Comments from "./Comments.jsx";
 import utils from "../utils/SingleReview.js";
 import "../designs/SingleReview.css";
-import Comments from "./Comments.jsx";
 
 export default function SingleReview() {
     const { review_id } = useParams();
@@ -26,10 +26,16 @@ export default function SingleReview() {
                     {<h2>{review.title}</h2>}
                     <p className="review-owner">by {review.owner}</p>
                     <p>Category: {review.category}</p>
-                    <p className="score">
-                        Score:{" "}
-                        {review.votes > 0 ? `+${review.votes}` : review.votes}
-                    </p>
+                    <div className="scorebar">
+                        <button className="pos">+</button>
+                        <p className="score">
+                            Score:{" "}
+                            {review.votes > 0
+                                ? `+${review.votes}`
+                                : review.votes}
+                        </p>
+                        <button className="neg">-</button>
+                    </div>
                     <img
                         src={review.review_img_url}
                         alt={`A ${review.category} game by ${review.designer}`}
