@@ -9,6 +9,7 @@ export default function Navbar() {
             <img
                 className="logo"
                 src={logo}
+                alt="The ChatMat logo. The words 'chat' on a doormat"
             />
             <section>
                 <h1>ChatMat</h1>

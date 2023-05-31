@@ -30,7 +30,10 @@ export default function SingleReview() {
                         Score:{" "}
                         {review.votes > 0 ? `+${review.votes}` : review.votes}
                     </p>
-                    <img src={review.review_img_url} />
+                    <img
+                        src={review.review_img_url}
+                        alt=""
+                    />
                     <p>{review.review_body}</p>
                 </section>
                 <section id="single-review-comments">

@@ -41,7 +41,10 @@ export default function ReviewList() {
                             <li className="list-review">
                                 <p className="reviewlist-title">{title}</p>
                                 <p className="reviewlist-owner">by {owner}</p>
-                                <img src={review_img_url} />
+                                <img
+                                    src={review_img_url}
+                                    alt=""
+                                />
                             </li>
                         </Link>
                     );
