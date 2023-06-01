@@ -9,7 +9,7 @@ export default function Comments({ review_id }) {
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [loading, setLoading] = useState(false);
-    const [sending, setSending] = useState(false);
+    const [disable, setDisable] = useState({ sending: false, empty: false });
 
     useEffect(() => {
         setLoading(true);
@@ -26,7 +26,9 @@ export default function Comments({ review_id }) {
     }, []);
 
     function postComment(event) {
-        setSending(true);
+        setDisable((curr) => {
+            return { ...curr, sending: true };
+        });
         event.preventDefault();
         const comment = {
             review_id: review_id,
@@ -60,8 +62,23 @@ export default function Comments({ review_id }) {
                 setNewComment("Failed to post comment");
                 return setTimeout(() => setNewComment(comment.body), 1500);
             })
-            .then(() => setSending(false));
+            .then(() =>
+                setDisable((curr) => {
+                    return { ...curr, sending: false };
+                })
+            );
     }
+
+    useEffect(() => {
+        if (newComment === "")
+            setDisable((curr) => {
+                return { ...curr, empty: true };
+            });
+        else
+            setDisable((curr) => {
+                return { ...curr, empty: false };
+            });
+    }, [newComment]);
 
     if (loading) return <p>Loading...</p>;
     return (
