@@ -21,6 +21,7 @@ main {
     border: 2px solid rgba(255, 0, 0, 0.303);
     box-sizing: content-box;
 }
+
 nav {
     margin: 0 auto;
 }
@@ -51,7 +52,7 @@ button {
     .hover-cats {
         width: 85vw;
         display: grid;
-        grid-template-rows: 75vh auto;
+        grid-template-rows: 1fr auto;
         grid-template-columns: auto;
         gap: 4vw;
         justify-items: center;
@@ -62,8 +63,8 @@ button {
     #category-menu {
         grid-area: 1 / 1 / 2 / 2;
         width: 50%;
+        height: auto;
         padding: 15px;
-        padding-left: 115px;
         border-radius: 20px;
         transition: all 0.6s ease-in-out;
         background-color: rgba(0, 255, 34, 0.219);
@@ -112,7 +113,7 @@ button {
         display: grid;
         grid-template-rows: auto;
         grid-template-columns: min(30%, 400px) auto;
-        gap: 4vw;
+        gap: max(4vw, 45px);
         justify-items: right;
         margin: 25px 0;
         transition: all 0.75s ease-in-out;
@@ -122,7 +123,7 @@ button {
         grid-area: 1 / 1 / 2 / 2;
         display: inline-block;
         width: min(26vw, 350px);
-        min-height: 60vh;
+        height: auto;
         padding: 15px;
         padding-left: 10vw;
         border-radius: 20px;
@@ -181,7 +182,7 @@ button {
         grid-area: 1 / 1 / 2 / 2;
         display: inline-block;
         width: min(26vw, 350px);
-        min-height: 60vh;
+        height: auto;
         padding: 15px;
         padding-left: 10vw;
         border-radius: 20px;
@@ -206,4 +207,18 @@ button {
 
 .hidden {
     display: none;
+}
+
+.tiny {
+    height: 0;
+    width: 0;
+    padding: none;
+    margin: none;
+    border: none;
+    background-color: transparent;
+}
+
+.tiny-text {
+    font-size: 0;
+    transition: all 0.6s ease-in-out;
 }

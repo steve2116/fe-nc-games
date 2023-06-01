@@ -1,0 +1,27 @@
+#cats-list {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: auto;
+}
+
+#cats-list > li {
+    display: inline-block;
+    background-color: rgba(193, 253, 249, 0.703);
+    border: 1px solid rgba(0, 0, 0, 0.759);
+    margin: 5px;
+    padding: 5px;
+    transition: all 0.6s ease-in-out;
+    border-radius: 10px;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+#cats-list > li > a {
+    color: black;
+}
+
+.cats-desc {
+    transition: all 0.5s ease-in-out;
+}

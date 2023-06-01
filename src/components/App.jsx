@@ -15,13 +15,8 @@ export default function App() {
             </nav>
             <div className={hoverClass}>
                 <div
-                    onClick={() => {
-                        setHoverClass((currHover) => {
-                            return currHover === "content-container"
-                                ? "hover-cats"
-                                : "content-container";
-                        });
-                    }}
+                    onClick={() => setHoverClass("hover-cats")}
+                    onMouseLeave={() => setHoverClass("content-container")}
                     id="category-menu"
                 >
                     <div
