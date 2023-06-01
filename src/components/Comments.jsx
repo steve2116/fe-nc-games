@@ -103,12 +103,12 @@ export default function Comments({ review_id }) {
                                 id="new-comment-body"
                                 value={newComment}
                                 onChange={(e) => setNewComment(e.target.value)}
-                                disabled={sending}
+                                disabled={disable.sending}
                                 placeholder="Enter comment here..."
                             />
                             <button
                                 type="submit"
-                                disabled={sending}
+                                disabled={disable.sending || disable.empty}
                                 id="post-comment"
                             >
                                 Post comment
