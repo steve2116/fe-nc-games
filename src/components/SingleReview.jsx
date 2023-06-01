@@ -7,7 +7,7 @@ import utils from "../utils/SingleReview.js";
 import "../designs/SingleReview.css";
 
 export default function SingleReview() {
-    const { user, setUser } = useContext(userContext);
+    const { user } = useContext(userContext);
     const { review_id } = useParams();
     const [review, setReview] = useState({});
     const [loading, setLoading] = useState(false);

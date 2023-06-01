@@ -8,7 +8,7 @@ import SingleReview from "./SingleReview.jsx";
 import AccountInfo from "./AccountInfo";
 
 export default function Main() {
-    const { user, setUser } = useContext(userContext);
+    const { user } = useContext(userContext);
 
     return (
         <>

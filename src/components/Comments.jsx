@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 
+import { userContext } from "../contexts/user.jsx";
 import utils from "../utils/Comments.js";
 import "../designs/Comments.css";
 
 export default function Comments({ review_id }) {
+    const { user } = useContext(userContext);
     const [comments, setComments] = useState([]);
     const [newComment, setNewComment] = useState("");
     const [loading, setLoading] = useState(false);
@@ -29,13 +31,13 @@ export default function Comments({ review_id }) {
         const comment = {
             review_id: review_id,
             body: newComment,
-            username: "test-account",
+            username: user.username,
         };
         setComments((curr) => {
             const newCom = {
                 ...comment,
-                author: "test-account",
-                comment_id: Math.round(Math.random() * 10000),
+                author: comment.username,
+                comment_id: -1,
                 votes: 0,
             };
             delete newCom.username;
@@ -44,8 +46,13 @@ export default function Comments({ review_id }) {
         setNewComment("Posting comment...");
         utils
             .postComment(review_id, comment)
-            .then(() => {
+            .then((postedComment) => {
                 setNewComment("Comment posted");
+                setComments((curr) => {
+                    const newComs = [...curr];
+                    newComs[0] = { ...postedComment };
+                    return newComs;
+                });
                 return setTimeout(() => setNewComment(""), 1500);
             })
             .catch(() => {
@@ -59,26 +66,39 @@ export default function Comments({ review_id }) {
     if (loading) return <p>Loading...</p>;
     return (
         <ul id="comment-list">
-            <form
-                className="list-comment"
-                onSubmit={postComment}
-            >
-                <label htmlFor="new-comment-body">Post a new comment: </label>
-                <textarea
-                    id="new-comment-body"
-                    value={newComment}
-                    onChange={(e) => setNewComment(e.target.value)}
-                    disabled={sending}
-                    placeholder="Enter comment here..."
-                />
-                <button
-                    type="submit"
-                    disabled={sending}
-                    id="post-comment"
-                >
-                    Post comment
-                </button>
-            </form>
+            {(() => {
+                if (user.username === "guest") {
+                    return (
+                        <li className="list-comment login-comment">
+                            <p>Log in to leave a comment</p>
+                        </li>
+                    );
+                } else
+                    return (
+                        <form
+                            className="list-comment"
+                            onSubmit={postComment}
+                        >
+                            <label htmlFor="new-comment-body">
+                                Post a new comment:{" "}
+                            </label>
+                            <textarea
+                                id="new-comment-body"
+                                value={newComment}
+                                onChange={(e) => setNewComment(e.target.value)}
+                                disabled={sending}
+                                placeholder="Enter comment here..."
+                            />
+                            <button
+                                type="submit"
+                                disabled={sending}
+                                id="post-comment"
+                            >
+                                Post comment
+                            </button>
+                        </form>
+                    );
+            })()}
             {comments.length === 0 ? (
                 <li>
                     There are no comments. Share your thoughts to be the first!
