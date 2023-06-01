@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import utils from "../utils/ReviewList";
+import ReviewsFilter from "./ReviewsFilter";
 import "../designs/ReviewList.css";
 
 export default function ReviewList() {
@@ -9,6 +10,7 @@ export default function ReviewList() {
     const [loading, setLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
+    const [showFilter, setShowFilter] = useState(false);
 
     const queries = { p: searchParams.get("p"), cat: searchParams.get("cat") };
 
@@ -33,6 +35,15 @@ export default function ReviewList() {
     if (loading) return <p>Loading reviews...</p>;
     return (
         <>
+            <button
+                onClick={() => setShowFilter((curr) => !curr)}
+                className="reviews-filter-but"
+            >
+                Filter
+            </button>
+            <section className={showFilter ? "reviews-filter" : "hidden"}>
+                <ReviewsFilter setSearchParams={setSearchParams} />
+            </section>
             <ul id="reviewlist">
                 {reviews.map(
                     ({ title, owner, review_img_url, review_id, category }) => {

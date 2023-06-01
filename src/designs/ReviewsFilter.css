@@ -1,0 +1,21 @@
+.reviews-filter {
+    position: absolute;
+    height: 300px;
+    width: 500px;
+    padding: 20px;
+    border: 5px solid rgba(114, 0, 184, 0.9);
+    background-color: rgba(157, 0, 255, 0.9);
+    left: calc(50vw - 262.5px);
+    top: calc(40vh - 137.5px);
+    display: grid;
+    align-content: center;
+    grid-template-columns: auto;
+    grid-template-rows: repeat(3, 1fr);
+}
+
+.reviews-filter > h2 {
+    grid-area: 1 / 1 / 2 / 2;
+    width: 100%;
+    text-align: center;
+    top: 15%;
+}
