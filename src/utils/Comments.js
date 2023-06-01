@@ -6,4 +6,10 @@ const getComments = (review_id) => {
     );
 };
 
-export default { getComments };
+const postComment = (review_id, comment) => {
+    return API.post(`/reviews/${review_id}/comments`, comment).then(
+        ({ data }) => data.comment
+    );
+};
+
+export default { getComments, postComment };
