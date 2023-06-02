@@ -203,6 +203,14 @@ button {
     main > p {
         font-size: 1.7em;
     }
+
+    .cat-filter-text {
+        position: fixed;
+        transform: rotate(-90deg);
+        left: -131px;
+        top: 50vh;
+        font-size: 2.7em;
+    }
 }
 
 .hidden {
