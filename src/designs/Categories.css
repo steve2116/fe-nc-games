@@ -6,6 +6,10 @@
     height: auto;
 }
 
+.cat-contain > h2 {
+    text-align: center;
+}
+
 #cats-list > li {
     display: inline-block;
     background-color: rgba(193, 253, 249, 0.703);
@@ -20,6 +24,9 @@
 
 #cats-list > li > a {
     color: black;
+    text-decoration: underline;
+    text-decoration-style: wavy;
+    text-decoration-color: rgba(252, 42, 136, 0.93);
 }
 
 .cats-desc {

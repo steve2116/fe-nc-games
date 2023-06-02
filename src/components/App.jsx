@@ -13,6 +13,15 @@ export default function App() {
             <nav>
                 <Navbar />
             </nav>
+            <p
+                className={
+                    hoverClass === "content-container"
+                        ? "cat-filter-text"
+                        : "hidden"
+                }
+            >
+                Filter by category
+            </p>
             <div className={hoverClass}>
                 <div
                     onClick={() => setHoverClass("hover-cats")}
@@ -21,7 +30,9 @@ export default function App() {
                 >
                     <div
                         className={
-                            hoverClass === "content-container" ? "hidden" : ""
+                            hoverClass === "content-container"
+                                ? "hidden"
+                                : "cat-contain"
                         }
                     >
                         <Categories />

@@ -31,7 +31,7 @@ export default function Categories() {
     if (loading) return <p>Loading...</p>;
     return (
         <>
-            <h2>Browse our Categories!</h2>
+            <h2>Click to read about each Category!</h2>
             <ul id="cats-list">
                 {categories.map(({ slug, description }) => {
                     return (
