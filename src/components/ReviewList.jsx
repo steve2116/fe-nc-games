@@ -12,7 +12,11 @@ export default function ReviewList() {
     const [page, setPage] = useState(1);
     const [showFilter, setShowFilter] = useState(false);
 
-    const queries = { p: searchParams.get("p"), cat: searchParams.get("cat") };
+    const queries = {
+        p: searchParams.get("p"),
+        cat: searchParams.get("cat"),
+        sortby: searchParams.get("sort_by"),
+    };
 
     useEffect(() => {
         setPage(() => {
@@ -31,6 +35,13 @@ export default function ReviewList() {
             .then((reviews) => setReviews(reviews))
             .then(() => setLoading(false));
     }, [page, queries.cat]);
+
+    function pageN(num) {
+        let url = `/reviews?p=${page + num}`;
+        if (queries.cat) url += `&cat=${queries.cat}`;
+        if (queries.sortby) url += `&sort_by=${queries.sortby}`;
+        return url;
+    }
 
     if (loading) return <p>Loading reviews...</p>;
     return (
@@ -70,13 +81,13 @@ export default function ReviewList() {
             <section>
                 <Link
                     className={page > 1 ? "" : "hidden"}
-                    to={`/reviews?p=${page - 1}`}
+                    to={pageN(-1)}
                 >
                     previous
                 </Link>
                 <Link
                     className={reviews.length === 0 ? "hidden" : ""}
-                    to={`/reviews?p=${page + 1}`}
+                    to={pageN(1)}
                 >
                     next
                 </Link>
