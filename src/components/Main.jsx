@@ -6,13 +6,17 @@ import Home from "./Home.jsx";
 import ReviewList from "./ReviewList.jsx";
 import SingleReview from "./SingleReview.jsx";
 import AccountInfo from "./AccountInfo";
+import "../designs/Main.css";
 
 export default function Main() {
     const { user } = useContext(userContext);
 
     return (
         <>
-            <p>Currently logged in as: {user.username}</p>
+            <p id="top">Currently logged in as: {user.username}</p>
+            <a href="#top">
+                <button className="back-to-top">Back to top</button>
+            </a>
             <Routes>
                 <Route
                     path="/"

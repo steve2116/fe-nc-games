@@ -1,8 +1,11 @@
 import API from "./API.js";
 
-const getReviews = ({ p }) => {
+const getReviews = ({ p, cat }) => {
+    let urlStr = "/reviews?limit=10";
     if (isNaN(p)) p = 1;
-    return API.get(`/reviews?limit=10&p=${p}`).then(({ data }) => data.reviews);
+    urlStr += `&p=${p}`;
+    if (cat) urlStr += `&category=${cat}`;
+    return API.get(urlStr).then(({ data }) => data.reviews);
 };
 
 export default { getReviews };

@@ -10,23 +10,36 @@ export default function ReviewList() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
 
+    const queries = {
+        p: searchParams.get("p"),
+        cat: searchParams.get("cat"),
+        sortby: searchParams.get("sort_by"),
+    };
+
     useEffect(() => {
         setPage(() => {
-            if (Number(searchParams.get("p")) !== 0)
-                return Number(searchParams.get("p"));
+            if (Number(queries.p) !== 0) return Number(queries.p);
             else return 1;
         });
-    }, [searchParams.get("p")]);
+    }, [queries.p]);
 
     useEffect(() => {
         setLoading(true);
         utils
             .getReviews({
                 p: page,
+                cat: queries.cat,
             })
             .then((reviews) => setReviews(reviews))
             .then(() => setLoading(false));
-    }, [page]);
+    }, [page, queries.cat]);
+
+    function pageN(num) {
+        let url = `/reviews?p=${page + num}`;
+        if (queries.cat) url += `&cat=${queries.cat}`;
+        if (queries.sortby) url += `&sort_by=${queries.sortby}`;
+        return url;
+    }
 
     if (loading) return <p>Loading reviews...</p>;
     return (
@@ -46,7 +59,7 @@ export default function ReviewList() {
                                     </p>
                                     <img
                                         src={review_img_url}
-                                        alt={`The review image of ${category}`}
+                                        alt={`A ${category} review image`}
                                     />
                                 </li>
                             </Link>
@@ -57,13 +70,13 @@ export default function ReviewList() {
             <section>
                 <Link
                     className={page > 1 ? "" : "hidden"}
-                    to={`/reviews?p=${page - 1}`}
+                    to={pageN(-1)}
                 >
                     previous
                 </Link>
                 <Link
                     className={reviews.length === 0 ? "hidden" : ""}
-                    to={`/reviews?p=${page + 1}`}
+                    to={pageN(1)}
                 >
                     next
                 </Link>
