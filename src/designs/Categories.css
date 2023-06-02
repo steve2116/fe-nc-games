@@ -6,6 +6,10 @@
     height: auto;
 }
 
+.cat-contain > h2 {
+    text-align: center;
+}
+
 #cats-list > li {
     display: inline-block;
     background-color: rgba(193, 253, 249, 0.703);

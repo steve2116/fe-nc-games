@@ -30,7 +30,9 @@ export default function App() {
                 >
                     <div
                         className={
-                            hoverClass === "content-container" ? "hidden" : ""
+                            hoverClass === "content-container"
+                                ? "hidden"
+                                : "cat-contain"
                         }
                     >
                         <Categories />
