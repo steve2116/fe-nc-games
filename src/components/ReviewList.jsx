@@ -18,15 +18,17 @@ export default function ReviewList() {
             p: Number(searchParams.get("p")),
             cat: searchParams.get("cat"),
             sortby: searchParams.get("sort_by"),
+            order: searchParams.get("order"),
         });
     }, [
         searchParams.get("p"),
         searchParams.get("cat"),
         searchParams.get("sort_by"),
+        searchParams.get("order"),
     ]);
 
     useEffect(() => {
-        setPage(() => (filterer.p !== 0 ? filterer.p : 1));
+        setPage(() => (filterer.p > 0 ? filterer.p : 1));
     }, [filterer.p]);
 
     useEffect(() => {
@@ -38,7 +40,7 @@ export default function ReviewList() {
             })
             .then((reviews) => setReviews(reviews))
             .then(() => setLoading(false));
-    }, [page, filterer.p, filterer.cat, filterer.sortby]);
+    }, [page, filterer]);
 
     if (loading)
         return (
@@ -64,6 +66,7 @@ export default function ReviewList() {
                 <ReviewsFilter
                     filterer={filterer}
                     page={page}
+                    setShowFilter={setShowFilter}
                 />
             </section>
             <ul id="reviewlist">
@@ -94,7 +97,9 @@ export default function ReviewList() {
                     className={page > 1 ? "" : "hidden"}
                     to={`/reviews?p=${page - 1}${
                         filterer.cat ? `&cat=${filterer.cat}` : ""
-                    }${filterer.sortby ? `&sort_by=${filterer.sortby}` : ""}`}
+                    }${filterer.sortby ? `&sort_by=${filterer.sortby}` : ""}${
+                        filterer.order ? `&order=${filterer.order}` : ""
+                    }`}
                 >
                     previous
                 </Link>
@@ -102,7 +107,15 @@ export default function ReviewList() {
                     className={reviews.length === 0 ? "hidden" : ""}
                     to={`/reviews?p=${page + 1}${
                         filterer.cat ? `&cat=${filterer.cat}` : ""
-                    }${filterer.sortby ? `&sort_by=${filterer.sortby}` : ""}`}
+                    }${
+                        filterer.sortby
+                            ? `&sort_by=${filterer.sortby}${
+                                  filterer.order
+                                      ? `&order=${filterer.order}`
+                                      : ""
+                              }`
+                            : ""
+                    }`}
                 >
                     next
                 </Link>
