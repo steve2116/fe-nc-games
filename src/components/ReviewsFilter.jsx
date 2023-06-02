@@ -2,20 +2,16 @@ import { useState } from "react";
 
 import "../designs/ReviewsFilter.css";
 
-export default function ReviewsFilter({ setSearchParams }) {
+export default function ReviewsFilter({ setFilterer }) {
     const [radios, setRadios] = useState({ owner: false });
 
     function submitSortby(event) {
         if (event) event.preventDefault();
+        console.log("HERE");
         Object.keys(radios).forEach((key) => {
             if (radios[key]) {
-                setSearchParams((curr) => {
-                    const newParams = [];
-                    for (const [param, value] of curr.entries()) {
-                        if (param === "sortby") newParams.push(["sortby", key]);
-                        else newParams.push([param, value]);
-                    }
-                    return new URL(newParams);
+                setFilterer((curr) => {
+                    return { ...curr, sortby: key };
                 });
             }
         });

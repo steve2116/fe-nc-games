@@ -11,37 +11,35 @@ export default function ReviewList() {
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
     const [showFilter, setShowFilter] = useState(false);
-
-    const queries = {
-        p: searchParams.get("p"),
-        cat: searchParams.get("cat"),
-        sortby: searchParams.get("sort_by"),
-    };
+    const [filterer, setFilterer] = useState({});
 
     useEffect(() => {
-        setPage(() => {
-            if (Number(queries.p) !== 0) return Number(queries.p);
-            else return 1;
+        setFilterer({
+            p: Number(searchParams.get("p")),
+            cat: searchParams.get("cat"),
+            sortby: searchParams.get("sort_by"),
         });
-    }, [queries.p]);
+    }, [
+        searchParams.get("p"),
+        searchParams.get("cat"),
+        searchParams.get("sort_by"),
+    ]);
+
+    useEffect(() => {
+        setPage(() => (filterer.p !== 0 ? filterer.p : 1));
+    }, [filterer.p]);
 
     useEffect(() => {
         setLoading(true);
+        console.log("A change occured", page, filterer.cat, filterer.sortby);
         utils
             .getReviews({
+                ...filterer,
                 p: page,
-                cat: queries.cat,
             })
             .then((reviews) => setReviews(reviews))
             .then(() => setLoading(false));
-    }, [page, queries.cat]);
-
-    function pageN(num) {
-        let url = `/reviews?p=${page + num}`;
-        if (queries.cat) url += `&cat=${queries.cat}`;
-        if (queries.sortby) url += `&sort_by=${queries.sortby}`;
-        return url;
-    }
+    }, [page, ...Object.values(filterer)]);
 
     if (loading) return <p>Loading reviews...</p>;
     return (
@@ -53,7 +51,7 @@ export default function ReviewList() {
                 Filter
             </button>
             <section className={showFilter ? "reviews-filter" : "hidden"}>
-                <ReviewsFilter setSearchParams={setSearchParams} />
+                <ReviewsFilter setFilterer={setFilterer} />
             </section>
             <ul id="reviewlist">
                 {reviews.map(
@@ -81,13 +79,17 @@ export default function ReviewList() {
             <section>
                 <Link
                     className={page > 1 ? "" : "hidden"}
-                    to={pageN(-1)}
+                    to={`/reviews?p=${page - 1}${
+                        filterer.cat ? `&cat=${filterer.cat}` : ""
+                    }${filterer.sortby ? `&sort_by=${filterer.sortby}` : ""}`}
                 >
                     previous
                 </Link>
                 <Link
                     className={reviews.length === 0 ? "hidden" : ""}
-                    to={pageN(1)}
+                    to={`/reviews?p=${page + 1}${
+                        filterer.cat ? `&cat=${filterer.cat}` : ""
+                    }${filterer.sortby ? `&sort_by=${filterer.sortby}` : ""}`}
                 >
                     next
                 </Link>
