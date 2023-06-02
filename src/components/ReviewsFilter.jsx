@@ -1,27 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import "../designs/ReviewsFilter.css";
 
-export default function ReviewsFilter({ setFilterer }) {
+export default function ReviewsFilter({ filterer, page }) {
     const [radios, setRadios] = useState({ owner: false });
 
-    function submitSortby(event) {
-        if (event) event.preventDefault();
-        console.log("HERE");
-        Object.keys(radios).forEach((key) => {
-            if (radios[key]) {
-                setFilterer((curr) => {
-                    return { ...curr, sortby: key };
-                });
-            }
+    useEffect(() => {
+        setRadios((curr) => {
+            return { ...curr, [filterer.sortby]: true };
         });
-    }
+    }, [filterer.sortby]);
 
+    function submitSortby(event) {
+        event.preventDefault();
+    }
     function sortbyChange(event) {
         setRadios((curr) => {
             return { ...curr, [event.target.value]: !curr[event.target.value] };
         });
-        submitSortby();
     }
 
     return (
@@ -32,16 +29,22 @@ export default function ReviewsFilter({ setFilterer }) {
                 className="reviews-filter-sortby"
             >
                 <h3>Sort by property</h3>
-                <label>
-                    <input
-                        type="radio"
-                        name="sortby"
-                        value="owner"
-                        onChange={sortbyChange}
-                        checked={radios.owner}
-                    />
-                    Author
-                </label>
+                <Link
+                    to={`/reviews?p=${page}${
+                        filterer.cat ? `&cat=${filterer.cat}` : ""
+                    }&sort_by=owner`}
+                >
+                    <label>
+                        <input
+                            type="radio"
+                            name="sortby"
+                            value="owner"
+                            onChange={sortbyChange}
+                            checked={radios.owner}
+                        />
+                        Author
+                    </label>
+                </Link>
             </form>
         </>
     );

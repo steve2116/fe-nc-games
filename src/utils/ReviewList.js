@@ -1,10 +1,11 @@
 import API from "./API.js";
 
-const getReviews = ({ p, cat }) => {
+const getReviews = ({ p, cat, sortby }) => {
     let urlStr = "/reviews?limit=10";
     if (isNaN(p)) p = 1;
     urlStr += `&p=${p}`;
     if (cat) urlStr += `&category=${cat}`;
+    if (sortby) urlStr += `&sort_by=${sortby}`;
     return API.get(urlStr).then(({ data }) => data.reviews);
 };
 

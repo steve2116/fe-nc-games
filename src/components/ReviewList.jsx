@@ -31,7 +31,6 @@ export default function ReviewList() {
 
     useEffect(() => {
         setLoading(true);
-        console.log("A change occured", page, filterer.cat, filterer.sortby);
         utils
             .getReviews({
                 ...filterer,
@@ -39,9 +38,20 @@ export default function ReviewList() {
             })
             .then((reviews) => setReviews(reviews))
             .then(() => setLoading(false));
-    }, [page, ...Object.values(filterer)]);
+    }, [page, filterer.p, filterer.cat, filterer.sortby]);
 
-    if (loading) return <p>Loading reviews...</p>;
+    if (loading)
+        return (
+            <>
+                <p>Loading reviews...</p>{" "}
+                <section className={showFilter ? "reviews-filter" : "hidden"}>
+                    <ReviewsFilter
+                        filterer={filterer}
+                        page={page}
+                    />
+                </section>
+            </>
+        );
     return (
         <>
             <button
@@ -51,7 +61,10 @@ export default function ReviewList() {
                 Filter
             </button>
             <section className={showFilter ? "reviews-filter" : "hidden"}>
-                <ReviewsFilter setFilterer={setFilterer} />
+                <ReviewsFilter
+                    filterer={filterer}
+                    page={page}
+                />
             </section>
             <ul id="reviewlist">
                 {reviews.map(
