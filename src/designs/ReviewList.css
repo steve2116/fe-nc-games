@@ -1,3 +1,13 @@
+.reviews-filter-but {
+    position: relative;
+    left: calc(50% - 45px);
+    border-radius: 10px;
+    background-color: rgba(9, 255, 0, 0.825);
+    border: 2px solid white;
+    color: black;
+    font-size: 1.2em;
+}
+
 @media (max-width: 799px) {
     main > ul {
         width: 100%;
@@ -21,6 +31,11 @@
     .list-review > img {
         max-width: 40vw;
         max-height: 30vw;
+    }
+
+    .reviews-filter-but {
+        height: 30px;
+        width: 90px;
     }
 }
 
@@ -46,6 +61,12 @@
         max-width: 27vw;
         max-height: 20vw;
     }
+
+    .reviews-filter-but {
+        height: 40px;
+        width: 120px;
+        font-size: 1.4rem;
+    }
 }
 
 @media (min-width: 1200px) {
@@ -69,5 +90,12 @@
     .list-review > img {
         max-width: 20vw;
         max-height: 20vw;
+    }
+
+    .reviews-filter-but {
+        height: 40px;
+        width: 120px;
+        margin-bottom: 15px;
+        font-size: 1.6rem;
     }
 }

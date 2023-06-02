@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
 
 import utils from "../utils/ReviewList";
+import ReviewsFilter from "./ReviewsFilter";
 import "../designs/ReviewList.css";
 
 export default function ReviewList() {
@@ -9,41 +10,65 @@ export default function ReviewList() {
     const [loading, setLoading] = useState(false);
     const [searchParams, setSearchParams] = useSearchParams();
     const [page, setPage] = useState(1);
-
-    const queries = {
-        p: searchParams.get("p"),
-        cat: searchParams.get("cat"),
-        sortby: searchParams.get("sort_by"),
-    };
+    const [showFilter, setShowFilter] = useState(false);
+    const [filterer, setFilterer] = useState({});
 
     useEffect(() => {
-        setPage(() => {
-            if (Number(queries.p) !== 0) return Number(queries.p);
-            else return 1;
+        setFilterer({
+            p: Number(searchParams.get("p")),
+            cat: searchParams.get("cat"),
+            sortby: searchParams.get("sort_by"),
+            order: searchParams.get("order"),
         });
-    }, [queries.p]);
+    }, [
+        searchParams.get("p"),
+        searchParams.get("cat"),
+        searchParams.get("sort_by"),
+        searchParams.get("order"),
+    ]);
+
+    useEffect(() => {
+        setPage(() => (filterer.p > 0 ? filterer.p : 1));
+    }, [filterer.p]);
 
     useEffect(() => {
         setLoading(true);
         utils
             .getReviews({
+                ...filterer,
                 p: page,
-                cat: queries.cat,
             })
             .then((reviews) => setReviews(reviews))
             .then(() => setLoading(false));
-    }, [page, queries.cat]);
+    }, [page, filterer]);
 
-    function pageN(num) {
-        let url = `/reviews?p=${page + num}`;
-        if (queries.cat) url += `&cat=${queries.cat}`;
-        if (queries.sortby) url += `&sort_by=${queries.sortby}`;
-        return url;
-    }
-
-    if (loading) return <p>Loading reviews...</p>;
+    if (loading)
+        return (
+            <>
+                <p>Loading reviews...</p>{" "}
+                <section className={showFilter ? "reviews-filter" : "hidden"}>
+                    <ReviewsFilter
+                        filterer={filterer}
+                        page={page}
+                    />
+                </section>
+            </>
+        );
     return (
         <>
+            <button
+                onClick={() => setShowFilter((curr) => !curr)}
+                className="reviews-filter-but"
+            >
+                Filter
+            </button>
+            <section className={showFilter ? "reviews-filter" : "hidden"}>
+                <ReviewsFilter
+                    filterer={filterer}
+                    page={page}
+                    setShowFilter={setShowFilter}
+                />
+            </section>
             <ul id="reviewlist">
                 {reviews.map(
                     ({ title, owner, review_img_url, review_id, category }) => {
@@ -70,13 +95,27 @@ export default function ReviewList() {
             <section>
                 <Link
                     className={page > 1 ? "" : "hidden"}
-                    to={pageN(-1)}
+                    to={`/reviews?p=${page - 1}${
+                        filterer.cat ? `&cat=${filterer.cat}` : ""
+                    }${filterer.sortby ? `&sort_by=${filterer.sortby}` : ""}${
+                        filterer.order ? `&order=${filterer.order}` : ""
+                    }`}
                 >
                     previous
                 </Link>
                 <Link
                     className={reviews.length === 0 ? "hidden" : ""}
-                    to={pageN(1)}
+                    to={`/reviews?p=${page + 1}${
+                        filterer.cat ? `&cat=${filterer.cat}` : ""
+                    }${
+                        filterer.sortby
+                            ? `&sort_by=${filterer.sortby}${
+                                  filterer.order
+                                      ? `&order=${filterer.order}`
+                                      : ""
+                              }`
+                            : ""
+                    }`}
                 >
                     next
                 </Link>
